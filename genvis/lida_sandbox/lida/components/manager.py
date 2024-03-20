@@ -11,10 +11,11 @@ import logging
 
 import pandas as pd
 from llmx import llm, TextGenerator
-from lida.datamodel import Goal, Summary, TextGenerationConfig, Persona
+from lida.datamodel import Task, Summary, TextGenerationConfig, Persona
 from lida.utils import read_dataframe
 from ..components.summarizer import Summarizer
-from ..components.goal import GoalExplorer
+from ..components.taskgenerator import TaskGenerator
+from ..components.tasksolver import TaskSolver
 from ..components.persona import PersonaExplorer
 from ..components.executor import ChartExecutor
 from ..components.viz import VizGenerator, VizEditor, VizExplainer, VizEvaluator, VizRepairer, VizRecommender
@@ -37,7 +38,8 @@ class Manager(object):
         self.text_gen = text_gen or llm()
 
         self.summarizer = Summarizer()
-        self.goal = GoalExplorer()
+        self.task = TaskGenerator()
+        self.solver = TaskSolver()
         self.vizgen = VizGenerator()
         self.vizeditor = VizEditor()
         self.executor = ChartExecutor()
@@ -74,7 +76,7 @@ class Manager(object):
         data: Union[pd.DataFrame, str],
         file_name="",
         n_samples: int = 3,
-        summary_method: str = "default",
+        summary_method: str = "llm",
         textgen_config: TextGenerationConfig = TextGenerationConfig(n=1, temperature=0),
     ) -> Summary:
         """
@@ -128,32 +130,32 @@ class Manager(object):
             data = read_dataframe(data)
 
         self.data = data
+        print(data)
         return self.summarizer.summarize(
             data=self.data, text_gen=self.text_gen, file_name=file_name, n_samples=n_samples,
             summary_method=summary_method, textgen_config=textgen_config)
 
-    def goals(
+    def tasks(
         self,
         summary: Summary,
         textgen_config: TextGenerationConfig = TextGenerationConfig(),
         n: int = 5,
-        persona: Persona = None
-    ) -> List[Goal]:
+        persona: Persona = None) -> dict[str, list[Task]]:
         """
-        Generate goals based on a summary.
+        Generate Tasks based on a summary.
 
         Args:
             summary (Summary): Input summary.
             textgen_config (TextGenerationConfig, optional): Text generation configuration. Defaults to TextGenerationConfig().
-            n (int, optional): Number of goals to generate. Defaults to 5.
+            n (int, optional): Number of tasks to generate. Defaults to 5.
             persona (Persona, str, dict, optional): Persona information. Defaults to None.
 
         Returns:
-            List[Goal]: List of generated goals.
+            List[Tasks]: List of generated tasks.
 
-        Example of list of goals:
+        Example of list of tasks:
 
-            Goal 0
+            Task 0
             Question: What is the distribution of Retail_Price?
 
             Visualization: histogram of Retail_Price
@@ -174,7 +176,7 @@ class Manager(object):
         if isinstance(persona, str):
             persona = Persona(persona=persona, rationale="")
 
-        return self.goal.generate(summary=summary, text_gen=self.text_gen,
+        return self.task.generate(summary=summary, text_gen=self.text_gen,
                                   textgen_config=textgen_config, n=n, persona=persona)
 
     def personas(
@@ -188,28 +190,105 @@ class Manager(object):
     def visualize(
         self,
         summary,
-        goal,
+        task,
+        n: int,
+        data_path,
         textgen_config: TextGenerationConfig = TextGenerationConfig(),
         library="seaborn",
         return_error: bool = False,
     ):
-        if isinstance(goal, dict):
-            goal = Goal(**goal)
-        if isinstance(goal, str):
-            goal = Goal(question=goal, visualization=goal, rationale="")
+        if isinstance(task, dict):
+            task = Task(**task)
+        if isinstance(task, str):
+            task = Task(question=task, visualization=task, rationale="")
 
         self.check_textgen(config=textgen_config)
-        code_specs = self.vizgen.generate(
-            summary=summary, goal=goal, textgen_config=textgen_config, text_gen=self.text_gen,
-            library=library)
-        charts = self.execute(
-            code_specs=code_specs,
-            data=self.data,
-            summary=summary,
-            library=library,
-            return_error=return_error,
-        )
+        max_retries = 3  # Maximum number of retries
+        retry_count = 0  # Initial retry counter
+        charts = []
+
+        while retry_count < max_retries:
+            try:
+                # Attempt to generate the visualization
+                code_specs = self.vizgen.generate(
+                    summary=summary,
+                    task=task,
+                    textgen_config=textgen_config,
+                    text_gen=self.text_gen,
+                    n=n,
+                    data_path=data_path,
+                    library=library
+                )
+
+                # Attempt to execute the generated visualization code
+                charts = self.execute(
+                    code_specs=code_specs,
+                    data=self.data,
+                    summary=summary,
+                    library=library,
+                    return_error=return_error,
+                )
+                break  # If successful, exit the loop
+
+            except Exception as e:
+                retry_count += 1  # Increment the retry counter
+                print(f"Error encountered during execution: {e}")
+
+                # Optionally, implement logic to handle specific errors differently
+                # or adjust parameters for the next retry attempt here.
+
+                if retry_count >= max_retries:
+                    print("Maximum retry attempts reached. Aborting.")
+                    break  # Exit the loop after reaching max retries
         return charts
+
+    def solve(
+            self,
+            summary,
+            task,
+            textgen_config: TextGenerationConfig = TextGenerationConfig(),
+            return_error: bool = False):
+        print("\n\nI'm solving now...\n\n")
+        if isinstance(task, dict):
+            task = Task(**task)
+        if isinstance(task, str):
+            task = Task(question=task, visualization=task, rationale="")
+
+        self.check_textgen(config=textgen_config)
+        max_retries = 3  # Maximum number of retries
+        retry_count = 0  # Initial retry counter
+        answers = {}
+
+        while retry_count < max_retries:
+            try:
+                # Attempt to generate the visualization
+                code_specs = self.solver.solve(
+                    summary=summary,
+                    task=task,
+                    textgen_config=textgen_config,
+                    text_gen=self.text_gen,
+                )
+                # Attempt to execute the generated visualization code
+                ans = self.execute(
+                    code_specs=code_specs,
+                    data=self.data,
+                    summary=summary,
+                    library='answers',
+                    return_error=return_error,
+                )
+                break  # If successful, exit the loop
+
+            except Exception as e:
+                retry_count += 1  # Increment the retry counter
+                print(f"Error encountered during execution: {e}")
+
+                # Optionally, implement logic to handle specific errors differently
+                # or adjust parameters for the next retry attempt here.
+
+                if retry_count >= max_retries:
+                    print("Maximum retry attempts reached. Aborting.")
+                    break  # Exit the loop after reaching max retries
+        return ans
 
     def execute(
         self,
@@ -282,7 +361,7 @@ class Manager(object):
     def repair(
         self,
         code,
-        goal: Goal,
+        task: Task,
         summary: Summary,
         feedback,
         textgen_config: TextGenerationConfig = TextGenerationConfig(),
@@ -294,7 +373,7 @@ class Manager(object):
         code_specs = self.repairer.generate(
             code=code,
             feedback=feedback,
-            goal=goal,
+            task=task,
             summary=summary,
             textgen_config=textgen_config,
             text_gen=self.text_gen,
@@ -335,15 +414,15 @@ class Manager(object):
     def evaluate(
         self,
         code,
-        goal: Goal,
+        task: Task,
         textgen_config: TextGenerationConfig = TextGenerationConfig(),
         library: str = "seaborn",
     ):
-        """Evaluate a visualization code given a goal
+        """Evaluate a visualization code given a task
 
         Args:
             code (_type_): _description_
-            goal (Goal): A visualization goal
+            task (Task): A visualization task
 
         Returns:
             _type_: _description_
@@ -353,7 +432,7 @@ class Manager(object):
 
         return self.evaluator.generate(
             code=code,
-            goal=goal,
+            task=task,
             textgen_config=textgen_config,
             text_gen=self.text_gen,
             library=library,

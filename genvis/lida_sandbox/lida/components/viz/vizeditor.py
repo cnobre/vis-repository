@@ -1,6 +1,6 @@
 from llmx import TextGenerator, TextGenerationConfig, TextGenerationResponse
 from ..scaffold import ChartScaffold
-from lida.datamodel import Goal, Summary
+from lida.datamodel import Task, Summary
 
 
 system_prompt = """
@@ -25,11 +25,15 @@ class VizEditor(object):
         for i, instruction in enumerate(instructions):
             instruction_string += f"{i+1}. {instruction} \n"
 
-        library_template, library_instructions = self.scaffold.get_template(Goal(
+        library_template, library_instructions = self.scaffold.get_template(Task(
             index=0,
-            question="",
-            visualization="",
-            rationale=""), library)
+            description="",
+            data_feature="",
+            analysis_type="",
+            options=[],
+            correct_answer="",
+            chart_type="",
+            ), library)
         # print("instructions", instructions)
 
         messages = [

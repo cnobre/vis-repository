@@ -6,6 +6,11 @@ from typing import Any, Dict, List, Optional, Union
 from llmx import TextGenerationConfig
 from pydantic.dataclasses import dataclass
 
+#import altair as alt
+#from altair_saver import save
+#import subprocess
+import json
+
 
 @dataclass
 class VizGeneratorConfig:
@@ -32,22 +37,25 @@ class UploadUrl:
 
 
 @dataclass
-class Goal:
-    """A visualization goal"""
-    question: str
-    visualization: str
+class Task:
+    """A visualization task"""
+    description: str
+    data_feature: Any
+    analysis_type: str
     rationale: str
     index: Optional[int] = 0
 
     def _repr_markdown_(self):
         return f"""
-### Goal {self.index}
+### Task {self.index}
 ---
-**Question:** {self.question}
-
-**Visualization:** `{self.visualization}`
-
-**Rationale:** {self.rationale}
+**Task:** {self.task}
+**Description:** {self.description}
+**data_feature:** {self.data_feature}
+**analysis_type:** {self.analysis_type}
+**options:** {self.options}
+**correct_answer:** {self.correct_answer}
+**chart_type:** {self.chart_type}
 """
 
 
@@ -101,8 +109,8 @@ class Persona:
 
 
 @dataclass
-class GoalWebRequest:
-    """A Goal Web Request"""
+class TaskWebRequest:
+    """A Task Web Request"""
 
     summary: Summary
     textgen_config: Optional[TextGenerationConfig] = field(
@@ -116,7 +124,7 @@ class VisualizeWebRequest:
     """A Visualize Web Request"""
 
     summary: Summary
-    goal: Goal
+    task: Task
     library: str = "seaborn"
     textgen_config: Optional[TextGenerationConfig] = field(
         default_factory=TextGenerationConfig
@@ -154,7 +162,7 @@ class VisualizeRepairWebRequest:
 
     feedback: Optional[Union[str, List[str], List[Dict]]]
     code: str
-    goal: Goal
+    task: Task
     summary: Summary
     library: str = "seaborn"
     textgen_config: Optional[TextGenerationConfig] = field(
@@ -178,7 +186,7 @@ class VisualizeEvalWebRequest:
     """A Visualize Eval Web Request"""
 
     code: str
-    goal: Goal
+    task: Task
     library: str = "seaborn"
     textgen_config: Optional[TextGenerationConfig] = field(
         default_factory=TextGenerationConfig
@@ -194,6 +202,7 @@ class ChartExecutorResponse:
     raster: Optional[str]  # base64 encoded image
     code: str  # code used to generate the visualization
     library: str  # library used to generate the visualization
+    chart: Optional[Any] = None  # altair chart
     error: Optional[Dict] = None  # error message if status is False
 
     def _repr_mimebundle_(self, include=None, exclude=None):
@@ -205,11 +214,18 @@ class ChartExecutorResponse:
 
         return bundle
 
-    def savefig(self, path):
+    def savefig(self, path, img_extension):
         """Save the raster image to a specified path if it exists"""
         if self.raster:
             with open(path, 'wb') as f:
                 f.write(base64.b64decode(self.raster))
+        elif self.chart or self.spec:
+            if self.chart:
+                self.chart.save(path + img_extension)
+                with open(path + '.json', 'w') as file:
+                    json.dump(self.spec, file, indent=2)
+            else:
+                print("Broken Vega-Lite schema")
         else:
             raise FileNotFoundError("No raster image to save")
 

@@ -11,6 +11,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import plotly.io as pio
 
+import altair as alt
+
 from lida.datamodel import ChartExecutorResponse, Summary
 
 
@@ -43,12 +45,16 @@ def preprocess_code(code: str) -> str:
             code = code[index:]
 
     code = code.replace("```", "")
-    if "chart = plot(data)" not in code:
+    if ('answers' in code) and ("answers = solve(data, summary)" not in code):
+        code = code + "\nanswers = solve(data, summary)"
+    elif ('spec' in code) and ("vega_lite_spec = plot(data)" not in code):
+        code = code + "\nvega_lite_spec = plot(data)"
+    elif ("chart = plot(data)" not in code) and ('spec' not in code) and ('answers' not in code):
         code = code + "\nchart = plot(data)"
     return code
 
 
-def get_globals_dict(code_string, data):
+def get_globals_dict(code_string, data, summary=None):
     # Parse the code string into an AST
     tree = ast.parse(code_string)
     # Extract the names of the imported modules and their aliases
@@ -74,7 +80,7 @@ def get_globals_dict(code_string, data):
         else:
             globals_dict[module_name.split(".")[-1]] = obj
 
-    ex_dicts = {"pd": pd, "data": data, "plt": plt}
+    ex_dicts = {"pd": pd, "data": data, 'summary': summary, "plt": plt}
     globals_dict.update(ex_dicts)
     return globals_dict
 
@@ -90,7 +96,7 @@ class ChartExecutor:
         code_specs: List[str],
         data: Any,
         summary: Summary,
-        library="altair",
+        library=None,
         return_error: bool = False,
     ) -> Any:
         """Validate and convert code"""
@@ -107,7 +113,72 @@ class ChartExecutor:
         charts = []
         code_spec_copy = code_specs.copy()
         code_specs = [preprocess_code(code) for code in code_specs]
-        if library == "altair":
+        if library == "vegalite":
+            for code in code_specs:
+                try:
+                    # print()
+                    # print("code")
+                    # print(code)
+                    ex_locals = get_globals_dict(code, data)
+                    exec(code, ex_locals)
+                    vega_lite_spec = ex_locals["vega_lite_spec"]
+                    alt_charts = [None for _ in vega_lite_spec]
+                    for i, spec in enumerate(vega_lite_spec):
+                        try:
+                            alt_chart = alt.Chart.from_dict(spec)
+                            alt_charts[i] = alt_chart
+                        except Exception as exception_error:
+                            print(exception_error)
+
+                    for spec, chart in zip(vega_lite_spec, alt_charts):
+                        charts.append(
+                            ChartExecutorResponse(
+                                spec=spec,
+                                status=True,
+                                raster=None,
+                                code=code,
+                                library=library,
+                                chart=chart
+                            )
+                        )
+                except Exception as exception_error:
+                    print(code_spec_copy, "\n===========\n")
+                    print(exception_error)
+                    print(traceback.format_exc())
+                    if return_error:
+                        charts.append(
+                            ChartExecutorResponse(
+                                spec=None,
+                                status=False,
+                                raster=None,
+                                code=code,
+                                library=library,
+                                error={
+                                    "message": str(exception_error),
+                                    "traceback": traceback.format_exc(),
+                                },
+                            )
+                        )
+            return charts
+
+        elif library == "answers":
+            answers = {}
+            for code in code_specs:
+                try:
+                    print()
+                    print("code")
+                    print(code)
+                    ex_locals = get_globals_dict(code, data, summary)
+                    exec(code, ex_locals)
+                    answers = ex_locals["answers"]
+
+                except Exception as exception_error:
+                    print(code_spec_copy, "\n===========\n")
+                    print(exception_error)
+                    print(traceback.format_exc())
+            return answers
+
+        elif library == "altair":
             for code in code_specs:
                 try:
                     ex_locals = get_globals_dict(code, data)
@@ -118,7 +189,7 @@ class ChartExecutor:
                     if "datasets" in vega_spec:
                         del vega_spec["datasets"]
 
-                    vega_spec["data"] = {"url": f"/files/data/{summary.file_name}"}
+                    vega_spec["data"] = {"url": f"/data/{summary.file_name}"}
                     charts.append(
                         ChartExecutorResponse(
                             spec=vega_spec,

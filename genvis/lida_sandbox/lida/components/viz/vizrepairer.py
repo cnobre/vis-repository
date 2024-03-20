@@ -2,7 +2,7 @@ from typing import Dict, List, Union
 from llmx import TextGenerator, TextGenerationConfig, TextGenerationResponse
 
 from ..scaffold import ChartScaffold
-from lida.datamodel import Goal, Summary
+from lida.datamodel import Task, Summary
 
 system_prompt = """
 You are a helpful assistant highly skilled in revising visualization code to improve the quality of the code and visualization based on feedback.  Assume that data in plot(data) contains a valid dataframe.
@@ -20,14 +20,18 @@ class VizRepairer(object):
 
     def generate(
             self, code: str, feedback: Union[str, Dict, List[Dict]],
-            goal: Goal, summary: Summary, textgen_config: TextGenerationConfig,
+            task: Task, summary: Summary, textgen_config: TextGenerationConfig,
             text_gen: TextGenerator, library='altair',):
         """Fix a code spec based on feedback"""
-        library_template, library_instructions = self.scaffold.get_template(Goal(
+        library_template, library_instructions = self.scaffold.get_template(Task(
             index=0,
-            question="",
-            visualization="",
-            rationale=""), library)
+            description="",
+            data_feature="",
+            analysis_type="",
+            options=[],
+            correct_answer="",
+            chart_type="",
+            ), library)
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "system", "content": f"The dataset summary is : {summary}. \n . The original goal was: {goal}."},

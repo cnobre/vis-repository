@@ -4,7 +4,7 @@ from lida.utils import clean_code_snippet
 from ..scaffold import ChartScaffold
 from llmx import TextGenerator, TextGenerationConfig, TextGenerationResponse
 # from lida.modules.scaffold import ChartScaffold
-from lida.datamodel import Goal, Summary
+from lida.datamodel import Task, Summary
 
 
 system_prompt = """
@@ -54,11 +54,15 @@ class VizRecommender(object):
             library='seaborn'):
         """Recommend a code spec based on existing visualization"""
 
-        library_template, library_instructions = self.scaffold.get_template(Goal(
+        library_template, library_instructions = self.scaffold.get_template(Task(
             index=0,
-            question="",
-            visualization="",
-            rationale=""), library)
+            description="",
+            data_feature="",
+            analysis_type="",
+            options=[],
+            correct_answer="",
+            chart_type="",
+            ), library)
 
         structure_instruction = f"""
         EACH CODE SNIPPET MUST BE A FULL PROGRAM (IT MUST IMPORT ALL THE LIBRARIES THAT ARE USED AND MUST CONTAIN plot(data) method). IT MUST FOLLOW THE STRUCTURE BELOW AND ONLY MODIFY THE INDICATED SECTIONS. \n\n {library_template} \n\n.

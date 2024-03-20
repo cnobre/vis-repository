@@ -1,28 +1,47 @@
 import json
 import logging
-from typing import Union
+from typing import Union, Any
 import pandas as pd
 from lida.utils import clean_code_snippet, read_dataframe
 from lida.datamodel import TextGenerationConfig
 from llmx import TextGenerator
 import warnings
 
-system_prompt = """
-You are an experienced data analyst that can annotate datasets. Your instructions are as follows:
-i) ALWAYS generate the name of the dataset and the dataset_description
-ii) ALWAYS generate a field description.
-iii.) ALWAYS generate a semantic_type (a single word) for each field given its values e.g. company, city, number, supplier, location, gender, longitude, latitude, url, ip address, zip code, email, etc
-You must return an updated JSON dictionary without any preamble or explanation.
-"""
+# system_prompt = """
+# You are an experienced data analyst that can annotate datasets. Your instructions are as follows:
+# i) ALWAYS generate the name of the dataset and the dataset_description
+# ii) ALWAYS generate a field description.
+# iii.) ALWAYS generate a semantic_type (a single word) for each field given its values e.g. company, city, number, supplier, location, gender, longitude, latitude, url, ip address, zip code, email, etc
+# You must return an updated JSON dictionary without any preamble or explanation.
+# """
+
+prompt = ("Given a summary of the dataset, your task is to enrich this information with additional insights " +
+          "and annotations. Follow these instructions carefully:\n" +
+          "1. ALWAYS provide a unique name for the dataset, encapsulating its core theme or content. " +
+          "This name should be concise yet descriptive.\n" +
+          "2. ALWAYS write a brief dataset_description that summarizes the dataset's overall purpose, scope, " +
+          "and potential value in analysis.\n" +
+          "3. For EACH field in the dataset:\n" +
+          "   a. Provide a detailed field description that explains the content and context of the field, " +
+          "including how it relates to the dataset's theme.\n" +
+          "   b. Determine and assign a semantic_type to each field based on its values. " +
+          "The semantic_type should be a single word that categorizes the nature of the data in that field, " +
+          "such as 'company', 'city', 'number', 'supplier', 'location', 'gender', 'longitude', 'latitude', " +
+          "'url', 'ip address', 'zip code', 'email', etc.\n\n" +
+          "Your output should be an updated JSON dictionary that incorporates these enhancements directly, " +
+          "without any introductory text or explanation. The goal is to make the dataset's structure and " +
+          "content clearer and more informative for users who wish to understand or analyze it further.")
+
 
 logger = logging.getLogger("lida")
 
 
-class Summarizer():
+class Summarizer:
     def __init__(self) -> None:
         self.summary = None
 
-    def check_type(self, dtype: str, value):
+    @staticmethod
+    def check_type(dtype: str, value: Any) -> int | float:
         """Cast value to right type to ensure it is JSON serializable"""
         if "float" in str(dtype):
             return float(value)
@@ -39,9 +58,11 @@ class Summarizer():
             properties = {}
             if dtype in [int, float, complex]:
                 properties["dtype"] = "number"
+                properties["mean"] = self.check_type(dtype, df[column].mean())
                 properties["std"] = self.check_type(dtype, df[column].std())
                 properties["min"] = self.check_type(dtype, df[column].min())
                 properties["max"] = self.check_type(dtype, df[column].max())
+                properties["median"] = self.check_type(dtype, df[column].median())
 
             elif dtype == bool:
                 properties["dtype"] = "boolean"
@@ -90,13 +111,14 @@ class Summarizer():
 
         return properties_list
 
-    def enrich(self, base_summary: dict, text_gen: TextGenerator,
+    @staticmethod
+    def enrich(base_summary: dict, text_gen: TextGenerator,
                textgen_config: TextGenerationConfig) -> dict:
         """Enrich the data summary with descriptions"""
         logger.info(f"Enriching the data summary with descriptions")
 
         messages = [
-            {"role": "system", "content": system_prompt},
+            {"role": "system", "content": prompt},
             {"role": "assistant", "content": f"""
         Annotate the dictionary below. Only return a JSON object.
         {base_summary}
@@ -109,7 +131,9 @@ class Summarizer():
             json_string = clean_code_snippet(response.text[0]["content"])
             enriched_summary = json.loads(json_string)
         except json.decoder.JSONDecodeError:
-            error_msg = f"The model did not return a valid JSON object while attempting to generate an enriched data summary. Consider using a default summary or  a larger model with higher max token length. | {response.text[0]['content']}"
+            error_msg = (f"The model did not return a valid JSON object while attempting to generate an enriched "
+                         f"data summary. Consider using a default summary or  a larger model with higher max token "
+                         f"length. | {response.text[0]['content']}")
             logger.info(error_msg)
             print(response.text[0]["content"])
             raise ValueError(error_msg + "" + response.usage)
@@ -117,9 +141,12 @@ class Summarizer():
 
     def summarize(
             self, data: Union[pd.DataFrame, str],
-            text_gen: TextGenerator, file_name="", n_samples: int = 3,
+            text_gen: TextGenerator,
+            file_name="",
+            n_samples: int = 3,
             textgen_config=TextGenerationConfig(n=1),
-            summary_method: str = "default", encoding: str = 'utf-8') -> dict:
+            summary_method: str = "llm",
+            encoding: str = 'utf-8') -> dict:
         """Summarize data from a pandas DataFrame or a file location"""
 
         # if data is a file path, read it into a pandas DataFrame, set file_name to the file name
@@ -127,6 +154,9 @@ class Summarizer():
             file_name = data.split("/")[-1]
             # modified to include encoding
             data = read_dataframe(data, encoding=encoding)
+
+        # removing rows with NaN values so that they are not possible answers to analysis tasks
+        data.dropna(inplace=True)
         data_properties = self.get_column_properties(data, n_samples)
 
         # default single stage summary construction

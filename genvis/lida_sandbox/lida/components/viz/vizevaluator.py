@@ -3,7 +3,7 @@ import json
 from ...utils import clean_code_snippet
 from llmx import TextGenerator, TextGenerationConfig, TextGenerationResponse
 
-from lida.datamodel import Goal
+from lida.datamodel import Task
 
 system_prompt = """
 You are a helpful assistant highly skilled in evaluating the quality of a given visualization code by providing a score from 1 (bad) - 10 (good) while providing clear rationale. YOU MUST CONSIDER VISUALIZATION BEST PRACTICES for each evaluation. Specifically, you can carefully evaluate the code across the following dimensions
@@ -33,14 +33,14 @@ class VizEvaluator(object):
     ) -> None:
         pass
 
-    def generate(self, code: str, goal: Goal,
+    def generate(self, code: str, task: Task,
                  textgen_config: TextGenerationConfig, text_gen: TextGenerator, library='altair'):
         """Generate a visualization explanation given some code"""
 
         messages = [
             {"role": "system", "content": system_prompt},
             {"role": "assistant",
-             "content": f"Generate an evaluation given the goal and code below in {library}. The specified goal is \n\n {goal.question} \n\n and the visualization code is \n\n {code} \n\n. Now, evaluate the code based on the 6 dimensions above. \n. THE SCORE YOU ASSIGN MUST BE MEANINGFUL AND BACKED BY CLEAR RATIONALE. A SCORE OF 1 IS POOR AND A SCORE OF 10 IS VERY GOOD. The structured evaluation is below ."},
+             "content": f"Generate an evaluation given the goal and code below in {library}. The specified goal is \n\n {task.description} \n\n and the visualization code is \n\n {code} \n\n. Now, evaluate the code based on the 6 dimensions above. \n. THE SCORE YOU ASSIGN MUST BE MEANINGFUL AND BACKED BY CLEAR RATIONALE. A SCORE OF 1 IS POOR AND A SCORE OF 10 IS VERY GOOD. The structured evaluation is below ."},
         ]
 
         # print(messages)
