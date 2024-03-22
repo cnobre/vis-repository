@@ -1,0 +1,38 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_101510_identification_task1_vis1.png",
+  "Task Type": "Identification Tasks",
+  "Analysis Task": "Which car model has the highest Miles_per_Gallon?",
+  "Question type": "MC",
+  "Question sub-type": "SingleAnswer",
+  "Chart": "bar",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": "Which car model has the highest Miles_per_Gallon?",
+    "data": {
+      "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+    },
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "Name",
+        "type": "nominal",
+        "axis": {
+          "labelAngle": -45,
+          "title": "Car Model"
+        }
+      },
+      "y": {
+        "field": "Miles_per_Gallon",
+        "type": "quantitative",
+        "axis": {
+          "title": "Miles per Gallon"
+        }
+      }
+    }
+  },
+  "correct": "The mazda glc has the highest Miles_per_Gallon with 46.6 MPG.",
+  "incorrect1": "The hi 1200d has the highest Miles_per_Gallon with 9.0 MPG.",
+  "incorrect2": "The pontiac safari (sw) has the highest Miles_per_Gallon with 13.0 MPG.",
+  "incorrect3": "The pontiac grand prix has the highest Miles_per_Gallon with 16.0 MPG."
+}

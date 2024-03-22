@@ -47,7 +47,7 @@ def preprocess_code(code: str) -> str:
     code = code.replace("```", "")
     if ('answers' in code) and ("answers = solve(data, summary)" not in code):
         code = code + "\nanswers = solve(data, summary)"
-    elif ('spec' in code) and ("vega_lite_spec = plot(data)" not in code):
+    elif ('spec' in code) and (("vega_lite_spec = plot(data)" not in code) or ("# vega_lite_spec = plot(data)" in code)):
         code = code + "\nvega_lite_spec = plot(data)"
     elif ("chart = plot(data)" not in code) and ('spec' not in code) and ('answers' not in code):
         code = code + "\nchart = plot(data)"

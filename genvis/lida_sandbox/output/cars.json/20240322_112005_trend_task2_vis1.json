@@ -1,0 +1,39 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_112005_trend_task2_vis1.png",
+  "Task Type": "Trend Analysis Tasks",
+  "Analysis Task": "How has the average Horsepower changed from 1970 to 1982?",
+  "Question type": "MC",
+  "Question sub-type": "SingleAnswer",
+  "Chart": "line",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": "How has the average Horsepower changed from 1970 to 1982?",
+    "data": {
+      "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+    },
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "field": "Year",
+        "type": "temporal",
+        "axis": {
+          "title": "Year",
+          "format": "%Y"
+        }
+      },
+      "y": {
+        "field": "Horsepower",
+        "type": "quantitative",
+        "aggregate": "mean",
+        "axis": {
+          "title": "Average Horsepower"
+        }
+      }
+    }
+  },
+  "correct": "python code broken",
+  "incorrect1": "python code broken",
+  "incorrect2": "python code broken",
+  "incorrect3": "python code broken"
+}

@@ -1,0 +1,41 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_112244_exploration_task1_vis2.png",
+  "Task Type": "Data Exploration Tasks",
+  "Analysis Task": "Explore the distribution of Miles_per_Gallon across different Origins.",
+  "Question type": "TextEntry",
+  "Question sub-type": "Essay",
+  "Chart": "bar",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": "Explore the distribution of Miles_per_Gallon across different Origins.",
+    "data": {
+      "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+    },
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "Origin",
+        "type": "nominal",
+        "title": "Origin"
+      },
+      "y": {
+        "aggregate": "mean",
+        "field": "Miles_per_Gallon",
+        "type": "quantitative",
+        "title": "Average Miles per Gallon"
+      },
+      "color": {
+        "field": "Origin",
+        "type": "nominal",
+        "legend": {
+          "title": "Car Origin"
+        }
+      }
+    }
+  },
+  "correct": "python code broken",
+  "incorrect1": "python code broken",
+  "incorrect2": "python code broken",
+  "incorrect3": "python code broken"
+}

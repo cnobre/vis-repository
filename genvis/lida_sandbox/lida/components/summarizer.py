@@ -106,8 +106,10 @@ class Summarizer:
             properties["num_unique_values"] = nunique
             properties["semantic_type"] = ""
             properties["description"] = ""
-            properties_list.append(
-                {"column": column, "properties": properties})
+
+            if True: # properties['dtype'] not in ['string', 'category'] or (properties['dtype'] in ['string', 'category'] and nunique <= 10):
+                properties_list.append(
+                    {"column": column, "properties": properties})
 
         return properties_list
 
@@ -132,7 +134,7 @@ class Summarizer:
             enriched_summary = json.loads(json_string)
         except json.decoder.JSONDecodeError:
             error_msg = (f"The model did not return a valid JSON object while attempting to generate an enriched "
-                         f"data summary. Consider using a default summary or  a larger model with higher max token "
+                         f"data summary. Consider using a default summary or a larger model with higher max token "
                          f"length. | {response.text[0]['content']}")
             logger.info(error_msg)
             print(response.text[0]["content"])
@@ -169,6 +171,8 @@ class Summarizer:
 
         data_summary = base_summary
 
+        summary_method = ""
+
         if summary_method == "llm":
             # two stage summarization with llm enrichment
             data_summary = self.enrich(
@@ -183,7 +187,10 @@ class Summarizer:
                 "dataset_description": ""
             }
 
-        data_summary["field_names"] = data.columns.tolist()
+        data_summary["field_names"] = []
+        for field in data_summary['fields']:
+            data_summary["field_names"].append(field['column'])
+
         data_summary["file_name"] = file_name
 
         return data_summary

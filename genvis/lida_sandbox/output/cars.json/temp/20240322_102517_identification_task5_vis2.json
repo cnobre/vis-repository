@@ -1,0 +1,41 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_102517_identification_task5_vis2.png",
+  "Task Type": "Identification Tasks",
+  "Analysis Task": "Which car has the lowest Acceleration?",
+  "Question type": "MC",
+  "Question sub-type": "SingleAnswer",
+  "Chart": "point",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "description": "A scatter plot showing cars by their acceleration, with point size representing acceleration.",
+    "data": {
+      "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+    },
+    "mark": "point",
+    "encoding": {
+      "y": {
+        "field": "Name",
+        "type": "ordinal",
+        "title": "Car Name"
+      },
+      "x": {
+        "field": "Acceleration",
+        "type": "quantitative",
+        "title": "Acceleration"
+      },
+      "size": {
+        "field": "Acceleration",
+        "type": "quantitative",
+        "legend": {
+          "title": "Acceleration Size"
+        }
+      }
+    },
+    "title": "Which car has the lowest Acceleration?"
+  },
+  "correct": "The car with the lowest acceleration is plymouth 'cuda 340 with an acceleration of 8.0.",
+  "incorrect1": "The car with the lowest acceleration is peugeot 504 with an acceleration of 24.8.",
+  "incorrect2": "The car with the lowest acceleration is pontiac grand prix with a horsepower of 230.0.",
+  "incorrect3": "The car with the lowest acceleration is chevrolet nova, chosen without considering its acceleration."
+}

@@ -6,24 +6,25 @@ from lida.datamodel import Task, TextGenerationConfig, Persona
 
 
 prompt = (
-    """Given a detailed summary of a dataset, you are able to create a structured list of visualization tasks that users can solve to gain insights into the dataset. Based on the information provided as the data summary, you generate visualization tasks per predefined categories. Each task is to be presented as a question with only one possible answer, that prompts the user to explore a relevant data visualization. When suggesting an analysis task, consider the complexity of visualizing large numbers of categorie; in such a case, specify the subset of interest of the data. Aim for simplicity and clarity in the resulting visualization.
-
-Input Summary:
-{}
+    """Given a detailed summary of a dataset, you are able to create a structured list of analysis tasks to gain insights into the dataset that users can solve by leveraging a data chart. Based on the information provided as the data summary, you generate visualization tasks per predefined categories. Aim for simplicity and clarity in the resulting visualization. Do not create an analysis task where the plot would have more than 10 categorical variables.
 
 Task Categories:
-- Identification Tasks (identification): Users identify specific elements within a visualization.
-- Comparison Tasks (comparison): Users compare different data points or groups within a visualization.
-- Trend Analysis Tasks (trend): Users analyze trends over time or across categories.
-- Relationship and Correlation Tasks (correlation): Users explore relationships or correlations between variables.
-- Data Exploration Tasks (exploration): Users freely explore the data to discover insights.
+- Identification Tasks (identification): Users identify specific elements within a visualization as a multiple choice question.
+- Comparison Tasks (comparison): Users compare different data points or groups within a visualization as an open-ended question.
+- Trend Analysis Tasks (trend): Users analyze trends over time or across categories as a multiple choice question.
+- Relationship and Correlation Tasks (correlation): Users explore relationships or correlations between variables as a multiple choice question.
+- Data Exploration Tasks (exploration): Users freely explore the data to discover insights as an open-ended question.
 
-Expected Output Format with Example:
+"""
+)
+
+template = (
+"""Expected Output Format with Example:
 {
   "Identification Tasks": [
                             {
-                              "description": "Which X has the highest Y?",
-                              "data_feature": ["X","Y"],
+                              "description": "Which X among the top N in Y has the highest Z?",
+                              "data_feature": ["X","Y", "Z"],
                               "analysis_type": "identification",
                               "rationale": "Z",
                             },
@@ -106,8 +107,9 @@ class TaskGenerator:
                  persona: Persona = None) -> dict[str, list[Task]]:
         """Generate tasks given a summary of data"""
 
-        user_prompt = f""" Generate {n} TASKS per category. The tasks should be based on the data summary below, \n\n .
-        {summary} \n\n"""
+        user_prompt = f""" Generate {n} TASKS per category. The tasks should be based on the [DATA SUMMARY] below. Each task is to be presented as a question with only one possible answer, that prompts the user to explore a relevant data visualization. When suggesting an analysis task, consider the complexity of visualizing categorical variables with a large number of unique values; in such a case, specify the subset of interest (e.g. grouping, filtering) of the data. \n\n[DATA SUMMARY]:\n .
+        {summary}. \n\n{template}"""
+
 
         # if not persona:
         #     persona = Persona(

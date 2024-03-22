@@ -195,7 +195,7 @@ chart = plot(data) # variable data already contains the data to be plotted and s
             for i in range(n):
                 spec_template += f'    spec{i+1} = <stub_{i+1}> # modify this section\n    vega_lite_specs.append(vega_lite_spec{i+1})\n'
 
-            template = f'```python\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n# Include comments in the code explaining your entire thought process\n<stub_0> # any logic to filter data ONLY IF NECESSARY\nvega_lite_specs = []\n{spec_template}    return vega_lite_spec\n\nvega_lite_spec = plot(data)  # data already contains the data to be plotted.  Always include this line. No additional code beyond this line.\n```'
+            template = f'```python\nimport pandas as pd\n\ndef plot(data: pd.DataFrame):\n# Include comments in the code explaining your entire thought process\n<stub_0> # any logic to filter data ONLY IF NECESSARY\nvega_lite_specs = []\n{spec_template}    return vega_lite_spec\n\nvega_lite_spec = plot(data)  # data already contains the data to be plotted.  Always include this line uncommented as this code will be executed as is. No additional code beyond this line.\n```'
             # print()
             # print("template")
             # print(template)

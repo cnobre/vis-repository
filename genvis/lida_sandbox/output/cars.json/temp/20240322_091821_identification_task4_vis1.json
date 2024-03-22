@@ -1,0 +1,29 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_091821_identification_task4_vis1.png",
+  "Task Type": "Identification Tasks",
+  "Analysis Task": "What is the maximum weight of a car in pounds in the dataset?",
+  "Question type": "MC",
+  "Question sub-type": "SingleAnswer",
+  "Chart": "bar",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": "What is the maximum weight of a car in pounds in the dataset?",
+    "data": {
+      "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+    },
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "Weight_in_lbs",
+        "type": "quantitative",
+        "aggregate": "max"
+      },
+      "y": {
+        "field": "Weight_in_lbs",
+        "type": "quantitative",
+        "aggregate": "count"
+      }
+    }
+  },
+  "correct": 

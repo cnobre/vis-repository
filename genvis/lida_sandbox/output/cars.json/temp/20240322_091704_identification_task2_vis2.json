@@ -1,0 +1,33 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_091704_identification_task2_vis2.png",
+  "Task Type": "Identification Tasks",
+  "Analysis Task": "What is the median miles per gallon (MPG) value in the dataset?",
+  "Question type": "MC",
+  "Question sub-type": "SingleAnswer",
+  "Chart": {
+    "type": "boxplot",
+    "extent": "min-max"
+  },
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": "What is the median miles per gallon (MPG) value in the dataset?",
+    "data": {
+      "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+    },
+    "mark": {
+      "type": "boxplot",
+      "extent": "min-max"
+    },
+    "encoding": {
+      "y": {
+        "field": "Miles_per_Gallon",
+        "type": "quantitative"
+      }
+    }
+  },
+  "correct": "The median miles per gallon (MPG) value in the dataset is 22.75.",
+  "incorrect1": "The mean miles per gallon (MPG) value in the dataset is 23.45.",
+  "incorrect2": "The minimum miles per gallon (MPG) value in the dataset is 9.00.",
+  "incorrect3": "The maximum miles per gallon (MPG) value in the dataset is 46.60."
+}

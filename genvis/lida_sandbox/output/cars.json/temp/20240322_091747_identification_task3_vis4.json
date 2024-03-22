@@ -1,0 +1,37 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_091747_identification_task3_vis4.png",
+  "Task Type": "Identification Tasks",
+  "Analysis Task": "Which country of origin appears most frequently in the dataset?",
+  "Question type": "MC",
+  "Question sub-type": "SingleAnswer",
+  "Chart": "bar",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": "Which country of origin appears most frequently in the dataset?",
+    "data": {
+      "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+    },
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "Origin",
+        "type": "nominal",
+        "title": "Country of Origin"
+      },
+      "y": {
+        "field": "Count",
+        "type": "quantitative",
+        "title": "Frequency"
+      },
+      "color": {
+        "field": "Origin",
+        "type": "nominal"
+      }
+    }
+  },
+  "correct": "The country of origin that appears most frequently in the dataset is USA.",
+  "incorrect1": "The country of origin that appears most frequently in the dataset is Japan.",
+  "incorrect2": "The country of origin that appears most frequently in the dataset is Europe.",
+  "incorrect3": "The country of origin that appears most frequently in the dataset is USA."
+}

@@ -1,0 +1,46 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_101828_identification_task2_vis1.png",
+  "Task Type": "Identification Tasks",
+  "Analysis Task": "Which year had the highest average Horsepower?",
+  "Question type": "MC",
+  "Question sub-type": "SingleAnswer",
+  "Chart": "bar",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "description": "Which year had the highest average Horsepower?",
+    "data": {
+      "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+    },
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "Year",
+        "type": "ordinal",
+        "axis": {
+          "title": "Year"
+        }
+      },
+      "y": {
+        "aggregate": "mean",
+        "field": "Horsepower",
+        "type": "quantitative",
+        "axis": {
+          "title": "Average Horsepower"
+        }
+      },
+      "color": {
+        "field": "Year",
+        "type": "nominal",
+        "legend": {
+          "title": "Year"
+        }
+      }
+    },
+    "title": "Which year had the highest average Horsepower?"
+  },
+  "correct": "The year 1970 had the highest average horsepower of 147.83.",
+  "incorrect1": "The year 1980 had the highest average horsepower of 77.48.",
+  "incorrect2": "The year 1973 had the highest total horsepower of 5219.0.",
+  "incorrect3": "The year 1970 had the highest average horsepower."
+}

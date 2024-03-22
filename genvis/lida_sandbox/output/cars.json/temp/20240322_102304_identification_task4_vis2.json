@@ -1,0 +1,33 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_102304_identification_task4_vis2.png",
+  "Task Type": "Identification Tasks",
+  "Analysis Task": "Which Origin produced the lightest car?",
+  "Question type": "MC",
+  "Question sub-type": "SingleAnswer",
+  "Chart": "boxplot",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": "Which Origin produced the lightest car?",
+    "data": {
+      "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+    },
+    "mark": "boxplot",
+    "encoding": {
+      "x": {
+        "field": "Origin",
+        "type": "nominal",
+        "title": "Origin"
+      },
+      "y": {
+        "field": "Weight_in_lbs",
+        "type": "quantitative",
+        "title": "Weight (lbs)"
+      }
+    }
+  },
+  "correct": "The Origin that produced the lightest car is Japan.",
+  "incorrect1": "The Origin that produced the lightest car is USA, based on the number of cars produced.",
+  "incorrect2": "The Origin that produced the lightest car is USA, considering the heaviest car instead.",
+  "incorrect3": "The Origin that produced the lightest car is USA, based on a random selection."
+}

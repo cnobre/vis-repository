@@ -1,0 +1,39 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_091605_identification_task1_vis1.png",
+  "Task Type": "Identification Tasks",
+  "Analysis Task": "Which car has the highest horsepower in the dataset?",
+  "Question type": "MC",
+  "Question sub-type": "SingleAnswer",
+  "Chart": "bar",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": "Which car has the highest horsepower in the dataset?",
+    "data": {
+      "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+    },
+    "mark": "bar",
+    "encoding": {
+      "y": {
+        "field": "Horsepower",
+        "type": "quantitative",
+        "title": "Horsepower"
+      },
+      "x": {
+        "field": "Name",
+        "type": "nominal",
+        "sort": "-y",
+        "title": "Car"
+      },
+      "color": {
+        "field": "Origin",
+        "type": "nominal",
+        "title": "Origin"
+      }
+    }
+  },
+  "correct": "python code broken",
+  "incorrect1": "python code broken",
+  "incorrect2": "python code broken",
+  "incorrect3": "python code broken"
+}

@@ -1,0 +1,41 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_112335_exploration_task2_vis1.png",
+  "Task Type": "Data Exploration Tasks",
+  "Analysis Task": "Investigate the relationship between Displacement, Horsepower, and Miles_per_Gallon.",
+  "Question type": "TextEntry",
+  "Question sub-type": "Essay",
+  "Chart": "point",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": "Investigate the relationship between Displacement, Horsepower, and Miles_per_Gallon.",
+    "data": {
+      "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+    },
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "Displacement",
+        "type": "quantitative",
+        "title": "Displacement (cubic inches)"
+      },
+      "y": {
+        "field": "Horsepower",
+        "type": "quantitative",
+        "title": "Horsepower"
+      },
+      "color": {
+        "field": "Miles_per_Gallon",
+        "type": "quantitative",
+        "title": "Miles per Gallon",
+        "legend": {
+          "title": "MPG"
+        }
+      }
+    }
+  },
+  "correct": "python code broken",
+  "incorrect1": "python code broken",
+  "incorrect2": "python code broken",
+  "incorrect3": "python code broken"
+}

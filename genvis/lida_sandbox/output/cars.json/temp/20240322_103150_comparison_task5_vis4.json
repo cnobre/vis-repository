@@ -1,0 +1,50 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_103150_comparison_task5_vis4.png",
+  "Task Type": "Comparison Tasks",
+  "Analysis Task": "Compare the standard deviation of Acceleration between cars with 4 and 8 Cylinders.",
+  "Question type": "TextEntry",
+  "Question sub-type": "Essay",
+  "Chart": "area",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "description": "Standard Deviation of Acceleration for 4 and 8 Cylinder Cars",
+    "data": {
+      "values": [
+        {
+          "Cylinders": "4",
+          "Acceleration": 2.3831848590877596
+        },
+        {
+          "Cylinders": "8",
+          "Acceleration": 2.2247594342451285
+        }
+      ]
+    },
+    "mark": "area",
+    "encoding": {
+      "x": {
+        "field": "Cylinders",
+        "type": "nominal",
+        "title": "Number of Cylinders"
+      },
+      "y": {
+        "field": "Acceleration",
+        "type": "quantitative",
+        "title": "Standard Deviation of Acceleration"
+      },
+      "color": {
+        "field": "Cylinders",
+        "type": "nominal",
+        "legend": {
+          "title": "Cylinders"
+        }
+      }
+    },
+    "title": "Compare the standard deviation of Acceleration between cars with 4 and 8 Cylinders."
+  },
+  "correct": "python code broken",
+  "incorrect1": "python code broken",
+  "incorrect2": "python code broken",
+  "incorrect3": "python code broken"
+}

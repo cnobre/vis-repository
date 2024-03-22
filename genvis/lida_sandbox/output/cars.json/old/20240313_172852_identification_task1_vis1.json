@@ -1,0 +1,25 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "title": "What is the horsepower of the car named 'Ford Mustang'?",
+  "data": {
+    "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": {
+      "field": "Horsepower",
+      "type": "quantitative",
+      "title": "Horsepower"
+    },
+    "y": {
+      "field": "Name",
+      "type": "nominal",
+      "title": "Car Name"
+    },
+    "color": {
+      "field": "Name",
+      "type": "nominal",
+      "legend": null
+    }
+  }
+}

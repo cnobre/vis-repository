@@ -1,0 +1,87 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_111538_identification_task2_vis1.png",
+  "Task Type": "Identification Tasks",
+  "Analysis Task": "Which year had the highest average Acceleration among cars produced in the USA?",
+  "Question type": "MC",
+  "Question sub-type": "SingleAnswer",
+  "Chart": "bar",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": "Which year had the highest average Acceleration among cars produced in the USA?",
+    "data": {
+      "values": [
+        {
+          "Year": "1970-01-01",
+          "Acceleration": 11.977272727272727
+        },
+        {
+          "Year": "1971-01-01",
+          "Acceleration": 14.342105263157896
+        },
+        {
+          "Year": "1972-01-01",
+          "Acceleration": 14.055555555555555
+        },
+        {
+          "Year": "1973-01-01",
+          "Acceleration": 13.620689655172415
+        },
+        {
+          "Year": "1974-01-01",
+          "Acceleration": 15.892857142857142
+        },
+        {
+          "Year": "1975-01-01",
+          "Acceleration": 16.35
+        },
+        {
+          "Year": "1976-01-01",
+          "Acceleration": 15.786363636363637
+        },
+        {
+          "Year": "1977-01-01",
+          "Acceleration": 15.238888888888889
+        },
+        {
+          "Year": "1978-01-01",
+          "Acceleration": 15.545454545454545
+        },
+        {
+          "Year": "1979-01-01",
+          "Acceleration": 15.243478260869566
+        },
+        {
+          "Year": "1980-01-01",
+          "Acceleration": 17.216666666666665
+        },
+        {
+          "Year": "1982-01-01",
+          "Acceleration": 16.3
+        }
+      ]
+    },
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "Year",
+        "type": "ordinal",
+        "axis": {
+          "title": "Year",
+          "labelAngle": -45
+        }
+      },
+      "y": {
+        "field": "Acceleration",
+        "type": "quantitative",
+        "axis": {
+          "title": "Average Acceleration"
+        }
+      }
+    }
+  },
+  "correct": "python code broken",
+  "incorrect1": "python code broken",
+  "incorrect2": "python code broken",
+  "incorrect3": "python code broken"
+}

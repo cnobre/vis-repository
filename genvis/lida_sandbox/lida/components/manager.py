@@ -220,6 +220,9 @@ class Manager(object):
                     library=library
                 )
 
+                print("code_specs")
+                print(code_specs)
+
                 # Attempt to execute the generated visualization code
                 charts = self.execute(
                     code_specs=code_specs,

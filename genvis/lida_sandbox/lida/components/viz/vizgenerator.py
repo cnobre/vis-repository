@@ -44,7 +44,7 @@ class VizGenerator(object):
             {"role": "system", "content": f"The dataset summary is : {summary} \n\n"},
             library_instructions,
             {"role": "user", "content":
-                f"Complete this [TEMPLATE] according to the instructions:\n\n [TEMPLATE]:\n{library_template} \n"}
+                f"Complete this [TEMPLATE] according to the instructions. It is crucial for the functionality of the entire script that the final line of code, vega_lite_spec = plot(data), remains active and is not commented out.\n\n [TEMPLATE]:\n{library_template} \n"}
              ]
 
         """

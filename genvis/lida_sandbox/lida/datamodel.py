@@ -9,7 +9,7 @@ from pydantic.dataclasses import dataclass
 #import altair as alt
 #from altair_saver import save
 #import subprocess
-import json
+
 
 
 @dataclass
@@ -214,18 +214,18 @@ class ChartExecutorResponse:
 
         return bundle
 
-    def savefig(self, path, img_extension):
+    def savefig(self, path):
         """Save the raster image to a specified path if it exists"""
         if self.raster:
             with open(path, 'wb') as f:
                 f.write(base64.b64decode(self.raster))
         elif self.chart or self.spec:
             if self.chart:
-                self.chart.save(path + img_extension)
-                with open(path + '.json', 'w') as file:
-                    json.dump(self.spec, file, indent=2)
+                self.chart.save(path)
+                return True
             else:
                 print("Broken Vega-Lite schema")
+                return False
         else:
             raise FileNotFoundError("No raster image to save")
 

@@ -1,0 +1,33 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_102039_identification_task3_vis1.png",
+  "Task Type": "Identification Tasks",
+  "Analysis Task": "What is the most common number of Cylinders in the dataset?",
+  "Question type": "MC",
+  "Question sub-type": "SingleAnswer",
+  "Chart": "bar",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": "What is the most common number of Cylinders in the dataset?",
+    "data": {
+      "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+    },
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "Cylinders",
+        "type": "ordinal",
+        "title": "Number of Cylinders"
+      },
+      "y": {
+        "aggregate": "count",
+        "type": "quantitative",
+        "title": "Count of Cars"
+      }
+    }
+  },
+  "correct": "The most common number of cylinders in the dataset is 4.",
+  "incorrect1": "The most common number of cylinders in the dataset is 5.",
+  "incorrect2": "The most common number of cylinders in the dataset is 5.",
+  "incorrect3": "The most common number of cylinders in the dataset is 3."
+}

@@ -5,7 +5,7 @@ from llmx import TextGenerator, TextGenerationResponse
 from lida.datamodel import Task, TextGenerationConfig, Persona
 
 
-prompt = ("You are a skilled data analys, highly skilled in writing PERFECT code for answering analysis tasks " +
+prompt = ("You are a skilled data analyst, highly skilled in writing PERFECT code for answering analysis tasks " +
                  "given a dataset." +
                  "Given some code template, you complete the template to generate the correct answer for the analysis " +
                  "question given the dataset. The transformations you apply in your code MUST be correct and the " +
@@ -46,7 +46,7 @@ THE OUTPUT SHOULD ONLY USE THE JSON FORMAT ABOVE.
 
 """
 
-template = '```python\nimport pandas as pd\n\ndef solve(data: pd.DataFrame, summary: dict):\n    # Include comments inside this Python code explaining your entire thought process\n    <stub_0> # any logic to find the ONE correct answer\n    correct = <correct> #Please provide a full-sentence answer that includes relevant context\n    <stub_1> # any logic to find the FIRST incorrect but plausible answer related to the analysis task\n    incorrect1 = <incorrect1> # Please provide a full-sentence answer that includes relevant context\n    <stub_2> # any logic to find the SECOND incorrect but plausible answer related to the analysis task\n    incorrect2 = <incorrect2> # Please provide a full-sentence answer that includes relevant context\n    <stub_3> # any logic to find the THIRD incorrect but plausible answer related to the analysis task\n    incorrect3 = <incorrect3> # Please provide a full-sentence answer that includes relevant context\n    answers = {"correct": correct, "incorrect1": incorrect1, "incorrect2": incorrect2, "incorrect3": incorrect3}\n    return answers\n\nanswers = solve(data, summary)  # data already contains the data to analyze.  Always include this line. No additional code beyond this line.\n```'
+template = '```python\nimport pandas as pd\n\ndef solve(data: pd.DataFrame, summary: dict):\n    # Include comments inside this Python code explaining your entire thought process\n    <stub_0> # any logic to find the ONE correct answer\n    correct = <correct> #Please provide a full-sentence answer that includes relevant context\n    <stub_1> # any logic to find the FIRST incorrect but plausible answer related to the analysis task\n    incorrect1 = <incorrect1> # Please provide a full-sentence answer that includes relevant context\n    <stub_2> # any logic to find the SECOND incorrect but plausible answer related to the analysis task\n    incorrect2 = <incorrect2> # Please provide a full-sentence answer that includes relevant context\n    <stub_3> # any logic to find the THIRD incorrect but plausible answer related to the analysis task\n    incorrect3 = <incorrect3> # Please provide a full-sentence answer that includes relevant context\n    answers = {"correct": str(correct), "incorrect1": str(incorrect1), "incorrect2": str(incorrect2), "incorrect3": str(incorrect3)}\n    return answers\n\nanswers = solve(data, summary)  # data already contains the data to analyze.  Always include this line. No additional code beyond this line.\n```'
 
 logger = logging.getLogger("lida")
 
@@ -65,7 +65,7 @@ class TaskSolver:
               n=3) -> dict[str, list[Task]]:
         """Generate tasks given a summary of data"""
 
-        user_prompt = f""" Solve the following [ANALYSIS TASK] taking into consideration the [DATA SUMMARY] AND THE [TEMPLATE OUTPUT]. Note that your answer shold only be based in the [TEMPLATE OUTPUT]: do not add anything before the initial "```" or after the last "```". \n\n[ANALYSIS TASK]:\n{task.description}\n\n[DATA SUMMARY]:\n{summary}\n\n[TEMPLATE OUTPUT]:{template}"""
+        user_prompt = f""" Solve the following [ANALYSIS TASK] taking into consideration the [DATA SUMMARY] AND THE [TEMPLATE OUTPUT]. Note that your answer shold only be based in the [TEMPLATE OUTPUT]: do not add anything before the initial "```" or after the last "```". The correct and incorrect answers you come up with must not explicitly mention if they are correct or incorrect.\n\n[ANALYSIS TASK]:\n{task.description}\n\n[DATA SUMMARY]:\n{summary}\n\n[TEMPLATE OUTPUT]:{template}"""
 
         messages = [
             {"role": "system", "content": prompt},
