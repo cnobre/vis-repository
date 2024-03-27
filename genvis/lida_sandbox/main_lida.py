@@ -82,10 +82,9 @@ for dataset_name in dataset_names:
 
             answers = None
             if categories_to_question_type[category]['type'] == 'MC':
-                pass
-                # answers = lida.solve(summary=summary,
-                #                      task=task,
-                #                      textgen_config=textgen_config_task)
+                answers = lida.solve(summary=summary,
+                                     task=task,
+                                     textgen_config=textgen_config_task)
             elif categories_to_question_type[category]['type'] == 'TextEntry':
                 answers = {}
 

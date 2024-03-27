@@ -1,0 +1,45 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240325_150039_exploration_task1_vis1.png",
+  "Task Type": "Data Exploration Tasks",
+  "Analysis Task": "Explore the distribution of cars by Origin and compare their average Displacement.",
+  "Question type": "TextEntry",
+  "Question sub-type": "Essay",
+  "Chart": "bar",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": "Explore the distribution of cars by Origin and compare their average Displacement.",
+    "data": {
+      "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+    },
+    "mark": "bar",
+    "encoding": {
+      "x": {
+        "field": "Origin",
+        "type": "nominal",
+        "axis": {
+          "title": "Origin"
+        }
+      },
+      "y": {
+        "aggregate": "average",
+        "field": "Displacement",
+        "type": "quantitative",
+        "axis": {
+          "title": "Average Displacement"
+        }
+      },
+      "color": {
+        "field": "Origin",
+        "type": "nominal",
+        "legend": {
+          "title": "Car Origin"
+        }
+      }
+    }
+  },
+  "correct": "python code broken",
+  "incorrect1": "python code broken",
+  "incorrect2": "python code broken",
+  "incorrect3": "python code broken"
+}

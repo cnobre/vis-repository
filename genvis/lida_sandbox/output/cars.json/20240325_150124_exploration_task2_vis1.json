@@ -1,0 +1,44 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240325_150124_exploration_task2_vis1.png",
+  "Task Type": "Data Exploration Tasks",
+  "Analysis Task": "Investigate how Acceleration varies across different Years and identify any outliers.",
+  "Question type": "TextEntry",
+  "Question sub-type": "Essay",
+  "Chart": "point",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": "Investigate how Acceleration varies across different Years and identify any outliers.",
+    "data": {
+      "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+    },
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "Year",
+        "type": "temporal",
+        "axis": {
+          "title": "Year"
+        }
+      },
+      "y": {
+        "field": "Acceleration",
+        "type": "quantitative",
+        "axis": {
+          "title": "Acceleration"
+        }
+      },
+      "color": {
+        "field": "Origin",
+        "type": "nominal",
+        "legend": {
+          "title": "Origin"
+        }
+      }
+    }
+  },
+  "correct": "python code broken",
+  "incorrect1": "python code broken",
+  "incorrect2": "python code broken",
+  "incorrect3": "python code broken"
+}

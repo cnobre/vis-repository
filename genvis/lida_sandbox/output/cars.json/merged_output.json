@@ -1,66 +1,17 @@
 {
   "1": {
-    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_111538_identification_task2_vis1.png",
-    "Task Type": "Identification Tasks",
-    "Analysis Task": "Which year had the highest average Acceleration among cars produced in the USA?",
+    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240325_145739_trend_task1_vis1.png",
+    "Task Type": "Trend Analysis Tasks",
+    "Analysis Task": "Which year saw the highest average Miles_per_Gallon across all cars?",
     "Question type": "MC",
     "Question sub-type": "SingleAnswer",
     "Chart": "bar",
     "Complexity": "ToDo",
     "spec": {
       "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      "title": "Which year had the highest average Acceleration among cars produced in the USA?",
+      "title": "Which year saw the highest average Miles_per_Gallon across all cars?",
       "data": {
-        "values": [
-          {
-            "Year": "1970-01-01",
-            "Acceleration": 11.977272727272727
-          },
-          {
-            "Year": "1971-01-01",
-            "Acceleration": 14.342105263157896
-          },
-          {
-            "Year": "1972-01-01",
-            "Acceleration": 14.055555555555555
-          },
-          {
-            "Year": "1973-01-01",
-            "Acceleration": 13.620689655172415
-          },
-          {
-            "Year": "1974-01-01",
-            "Acceleration": 15.892857142857142
-          },
-          {
-            "Year": "1975-01-01",
-            "Acceleration": 16.35
-          },
-          {
-            "Year": "1976-01-01",
-            "Acceleration": 15.786363636363637
-          },
-          {
-            "Year": "1977-01-01",
-            "Acceleration": 15.238888888888889
-          },
-          {
-            "Year": "1978-01-01",
-            "Acceleration": 15.545454545454545
-          },
-          {
-            "Year": "1979-01-01",
-            "Acceleration": 15.243478260869566
-          },
-          {
-            "Year": "1980-01-01",
-            "Acceleration": 17.216666666666665
-          },
-          {
-            "Year": "1982-01-01",
-            "Acceleration": 16.3
-          }
-        ]
+        "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
       },
       "mark": "bar",
       "encoding": {
@@ -69,14 +20,15 @@
           "type": "ordinal",
           "axis": {
             "title": "Year",
-            "labelAngle": -45
+            "labelAngle": 0
           }
         },
         "y": {
-          "field": "Acceleration",
+          "aggregate": "average",
+          "field": "Miles_per_Gallon",
           "type": "quantitative",
           "axis": {
-            "title": "Average Acceleration"
+            "title": "Average Miles per Gallon"
           }
         }
       }
@@ -87,16 +39,16 @@
     "incorrect3": "python code broken"
   },
   "2": {
-    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_112005_trend_task2_vis1.png",
+    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240325_145747_trend_task1_vis2.png",
     "Task Type": "Trend Analysis Tasks",
-    "Analysis Task": "How has the average Horsepower changed from 1970 to 1982?",
+    "Analysis Task": "Which year saw the highest average Miles_per_Gallon across all cars?",
     "Question type": "MC",
     "Question sub-type": "SingleAnswer",
     "Chart": "line",
     "Complexity": "ToDo",
     "spec": {
       "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      "title": "How has the average Horsepower changed from 1970 to 1982?",
+      "title": "Which year saw the highest average Miles_per_Gallon across all cars?",
       "data": {
         "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
       },
@@ -107,54 +59,16 @@
           "type": "temporal",
           "axis": {
             "title": "Year",
-            "format": "%Y"
+            "format": "%Y",
+            "labelAngle": -45
           }
         },
         "y": {
-          "field": "Horsepower",
+          "aggregate": "average",
+          "field": "Miles_per_Gallon",
           "type": "quantitative",
-          "aggregate": "mean",
           "axis": {
-            "title": "Average Horsepower"
-          }
-        }
-      }
-    },
-    "correct": "python code broken",
-    "incorrect1": "python code broken",
-    "incorrect2": "python code broken",
-    "incorrect3": "python code broken"
-  },
-  "3": {
-    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_112012_trend_task2_vis2.png",
-    "Task Type": "Trend Analysis Tasks",
-    "Analysis Task": "How has the average Horsepower changed from 1970 to 1982?",
-    "Question type": "MC",
-    "Question sub-type": "SingleAnswer",
-    "Chart": "area",
-    "Complexity": "ToDo",
-    "spec": {
-      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      "title": "How has the average Horsepower changed from 1970 to 1982?",
-      "data": {
-        "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
-      },
-      "mark": "area",
-      "encoding": {
-        "x": {
-          "field": "Year",
-          "type": "temporal",
-          "axis": {
-            "title": "Year",
-            "format": "%Y"
-          }
-        },
-        "y": {
-          "field": "Horsepower",
-          "type": "quantitative",
-          "aggregate": "mean",
-          "axis": {
-            "title": "Average Horsepower"
+            "title": "Average Miles per Gallon"
           }
         },
         "color": {
@@ -164,10 +78,111 @@
             "title": "Number of Cylinders"
           }
         },
-        "opacity": {
-          "value": 0.7
-        }
+        "tooltip": [
+          {
+            "field": "Year",
+            "type": "temporal",
+            "title": "Year"
+          },
+          {
+            "field": "Miles_per_Gallon",
+            "type": "quantitative",
+            "title": "Average MPG"
+          },
+          {
+            "field": "Cylinders",
+            "type": "nominal",
+            "title": "Cylinders"
+          }
+        ]
       }
+    },
+    "correct": "python code broken",
+    "incorrect1": "python code broken",
+    "incorrect2": "python code broken",
+    "incorrect3": "python code broken"
+  },
+  "3": {
+    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240325_145827_trend_task2_vis1.png",
+    "Task Type": "Trend Analysis Tasks",
+    "Analysis Task": "How has the average Horsepower changed from 1970 to 1982?",
+    "Question type": "MC",
+    "Question sub-type": "SingleAnswer",
+    "Chart": "line",
+    "Complexity": "ToDo",
+    "spec": {
+      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+      "description": "Average Horsepower from 1970 to 1982",
+      "data": {
+        "values": [
+          {
+            "Year": 1970,
+            "Horsepower": 147.82758620689654
+          },
+          {
+            "Year": 1971,
+            "Horsepower": 107.03703703703704
+          },
+          {
+            "Year": 1972,
+            "Horsepower": 120.17857142857143
+          },
+          {
+            "Year": 1973,
+            "Horsepower": 130.475
+          },
+          {
+            "Year": 1974,
+            "Horsepower": 94.23076923076923
+          },
+          {
+            "Year": 1975,
+            "Horsepower": 101.06666666666666
+          },
+          {
+            "Year": 1976,
+            "Horsepower": 101.11764705882354
+          },
+          {
+            "Year": 1977,
+            "Horsepower": 105.07142857142857
+          },
+          {
+            "Year": 1978,
+            "Horsepower": 99.69444444444444
+          },
+          {
+            "Year": 1979,
+            "Horsepower": 101.20689655172414
+          },
+          {
+            "Year": 1980,
+            "Horsepower": 77.48148148148148
+          },
+          {
+            "Year": 1982,
+            "Horsepower": 81.25862068965517
+          }
+        ]
+      },
+      "mark": "line",
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "ordinal",
+          "axis": {
+            "title": "Year"
+          }
+        },
+        "y": {
+          "field": "Horsepower",
+          "type": "quantitative",
+          "axis": {
+            "title": "Average Horsepower"
+          }
+        }
+      },
+      "title": "How has the average Horsepower changed from 1970 to 1982?"
     },
     "correct": "python code broken",
     "incorrect1": "python code broken",
@@ -175,33 +190,89 @@
     "incorrect3": "python code broken"
   },
   "4": {
-    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_112105_correlation_task1_vis1.png",
-    "Task Type": "Relationship and Correlation Tasks",
-    "Analysis Task": "Is there a correlation between Weight_in_lbs and Miles_per_Gallon?",
+    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240325_145831_trend_task2_vis2.png",
+    "Task Type": "Trend Analysis Tasks",
+    "Analysis Task": "How has the average Horsepower changed from 1970 to 1982?",
     "Question type": "MC",
     "Question sub-type": "SingleAnswer",
-    "Chart": "point",
+    "Chart": "area",
     "Complexity": "ToDo",
     "spec": {
       "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      "description": "Scatter plot showing the relationship between Weight_in_lbs and Miles_per_Gallon.",
+      "description": "Average Horsepower from 1970 to 1982",
       "data": {
-        "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+        "values": [
+          {
+            "Year": 1970,
+            "Horsepower": 147.82758620689654
+          },
+          {
+            "Year": 1971,
+            "Horsepower": 107.03703703703704
+          },
+          {
+            "Year": 1972,
+            "Horsepower": 120.17857142857143
+          },
+          {
+            "Year": 1973,
+            "Horsepower": 130.475
+          },
+          {
+            "Year": 1974,
+            "Horsepower": 94.23076923076923
+          },
+          {
+            "Year": 1975,
+            "Horsepower": 101.06666666666666
+          },
+          {
+            "Year": 1976,
+            "Horsepower": 101.11764705882354
+          },
+          {
+            "Year": 1977,
+            "Horsepower": 105.07142857142857
+          },
+          {
+            "Year": 1978,
+            "Horsepower": 99.69444444444444
+          },
+          {
+            "Year": 1979,
+            "Horsepower": 101.20689655172414
+          },
+          {
+            "Year": 1980,
+            "Horsepower": 77.48148148148148
+          },
+          {
+            "Year": 1982,
+            "Horsepower": 81.25862068965517
+          }
+        ]
       },
-      "mark": "point",
+      "mark": "area",
       "encoding": {
         "x": {
-          "field": "Weight_in_lbs",
-          "type": "quantitative",
-          "title": "Weight in lbs"
+          "field": "Year",
+          "type": "ordinal",
+          "axis": {
+            "title": "Year"
+          }
         },
         "y": {
-          "field": "Miles_per_Gallon",
+          "field": "Horsepower",
           "type": "quantitative",
-          "title": "Miles per Gallon"
+          "axis": {
+            "title": "Average Horsepower"
+          }
+        },
+        "color": {
+          "value": "steelblue"
         }
       },
-      "title": "Is there a correlation between Weight_in_lbs and Miles_per_Gallon?"
+      "title": "How has the average Horsepower changed from 1970 to 1982?"
     },
     "correct": "python code broken",
     "incorrect1": "python code broken",
@@ -209,153 +280,25 @@
     "incorrect3": "python code broken"
   },
   "5": {
-    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_112109_correlation_task1_vis2.png",
+    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240325_145917_correlation_task1_vis1.png",
     "Task Type": "Relationship and Correlation Tasks",
     "Analysis Task": "Is there a correlation between Weight_in_lbs and Miles_per_Gallon?",
-    "Question type": "MC",
-    "Question sub-type": "SingleAnswer",
-    "Chart": "circle",
-    "Complexity": "ToDo",
-    "spec": {
-      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      "description": "Hexbin plot showing the density of points for Weight_in_lbs and Miles_per_Gallon.",
-      "data": {
-        "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
-      },
-      "mark": "circle",
-      "transform": [
-        {
-          "bin": {
-            "maxbins": 60
-          },
-          "field": "Weight_in_lbs",
-          "as": "bin_Weight_in_lbs"
-        },
-        {
-          "bin": {
-            "maxbins": 60
-          },
-          "field": "Miles_per_Gallon",
-          "as": "bin_Miles_per_Gallon"
-        }
-      ],
-      "encoding": {
-        "x": {
-          "field": "bin_Weight_in_lbs",
-          "type": "quantitative",
-          "title": "Weight in lbs"
-        },
-        "y": {
-          "field": "bin_Miles_per_Gallon",
-          "type": "quantitative",
-          "title": "Miles per Gallon"
-        },
-        "size": {
-          "aggregate": "count",
-          "type": "quantitative",
-          "title": "Number of Cars"
-        }
-      },
-      "title": "Is there a correlation between Weight_in_lbs and Miles_per_Gallon?"
-    },
-    "correct": "python code broken",
-    "incorrect1": "python code broken",
-    "incorrect2": "python code broken",
-    "incorrect3": "python code broken"
-  },
-  "6": {
-    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_112143_correlation_task2_vis1.png",
-    "Task Type": "Relationship and Correlation Tasks",
-    "Analysis Task": "Does a higher number of Cylinders correlate with more Horsepower?",
     "Question type": "MC",
     "Question sub-type": "SingleAnswer",
     "Chart": "point",
     "Complexity": "ToDo",
     "spec": {
       "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      "title": "Does a higher number of Cylinders correlate with more Horsepower?",
+      "description": "Scatter plot showing the correlation between Weight_in_lbs and Miles_per_Gallon.",
       "data": {
         "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
       },
       "mark": "point",
       "encoding": {
         "x": {
-          "field": "Cylinders",
-          "type": "ordinal",
-          "title": "Number of Cylinders"
-        },
-        "y": {
-          "field": "Horsepower",
+          "field": "Weight_in_lbs",
           "type": "quantitative",
-          "title": "Horsepower"
-        }
-      }
-    },
-    "correct": "python code broken",
-    "incorrect1": "python code broken",
-    "incorrect2": "python code broken",
-    "incorrect3": "python code broken"
-  },
-  "7": {
-    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_112147_correlation_task2_vis2.png",
-    "Task Type": "Relationship and Correlation Tasks",
-    "Analysis Task": "Does a higher number of Cylinders correlate with more Horsepower?",
-    "Question type": "MC",
-    "Question sub-type": "SingleAnswer",
-    "Chart": "boxplot",
-    "Complexity": "ToDo",
-    "spec": {
-      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      "title": "Does a higher number of Cylinders correlate with more Horsepower?",
-      "data": {
-        "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
-      },
-      "mark": "boxplot",
-      "encoding": {
-        "x": {
-          "field": "Cylinders",
-          "type": "ordinal",
-          "title": "Number of Cylinders"
-        },
-        "y": {
-          "field": "Horsepower",
-          "type": "quantitative",
-          "title": "Horsepower"
-        },
-        "color": {
-          "field": "Origin",
-          "type": "nominal",
-          "legend": {
-            "title": "Origin"
-          }
-        }
-      }
-    },
-    "correct": "python code broken",
-    "incorrect1": "python code broken",
-    "incorrect2": "python code broken",
-    "incorrect3": "python code broken"
-  },
-  "8": {
-    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_112237_exploration_task1_vis1.png",
-    "Task Type": "Data Exploration Tasks",
-    "Analysis Task": "Explore the distribution of Miles_per_Gallon across different Origins.",
-    "Question type": "TextEntry",
-    "Question sub-type": "Essay",
-    "Chart": "boxplot",
-    "Complexity": "ToDo",
-    "spec": {
-      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      "title": "Explore the distribution of Miles_per_Gallon across different Origins.",
-      "data": {
-        "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
-      },
-      "mark": "boxplot",
-      "encoding": {
-        "x": {
-          "field": "Origin",
-          "type": "nominal",
-          "title": "Origin"
+          "title": "Weight in lbs"
         },
         "y": {
           "field": "Miles_per_Gallon",
@@ -369,7 +312,138 @@
             "title": "Car Origin"
           }
         }
-      }
+      },
+      "title": "Is there a correlation between Weight_in_lbs and Miles_per_Gallon?"
+    },
+    "correct": "python code broken",
+    "incorrect1": "python code broken",
+    "incorrect2": "python code broken",
+    "incorrect3": "python code broken"
+  },
+  "6": {
+    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240325_145921_correlation_task1_vis2.png",
+    "Task Type": "Relationship and Correlation Tasks",
+    "Analysis Task": "Is there a correlation between Weight_in_lbs and Miles_per_Gallon?",
+    "Question type": "MC",
+    "Question sub-type": "SingleAnswer",
+    "Chart": "rect",
+    "Complexity": "ToDo",
+    "spec": {
+      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+      "description": "Hexbin plot showing the density of cars by Weight_in_lbs and Miles_per_Gallon.",
+      "data": {
+        "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+      },
+      "mark": "rect",
+      "encoding": {
+        "x": {
+          "bin": {
+            "maxbins": 60
+          },
+          "field": "Weight_in_lbs",
+          "type": "quantitative",
+          "title": "Weight in lbs"
+        },
+        "y": {
+          "bin": {
+            "maxbins": 60
+          },
+          "field": "Miles_per_Gallon",
+          "type": "quantitative",
+          "title": "Miles per Gallon"
+        },
+        "color": {
+          "aggregate": "count",
+          "type": "quantitative",
+          "legend": {
+            "title": "Number of Cars"
+          }
+        }
+      },
+      "title": "Is there a correlation between Weight_in_lbs and Miles_per_Gallon?"
+    },
+    "correct": "python code broken",
+    "incorrect1": "python code broken",
+    "incorrect2": "python code broken",
+    "incorrect3": "python code broken"
+  },
+  "7": {
+    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240325_145956_correlation_task2_vis1.png",
+    "Task Type": "Relationship and Correlation Tasks",
+    "Analysis Task": "Does a higher number of Cylinders correlate with more Horsepower?",
+    "Question type": "MC",
+    "Question sub-type": "SingleAnswer",
+    "Chart": "point",
+    "Complexity": "ToDo",
+    "spec": {
+      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+      "description": "Scatter plot showing the relationship between the number of cylinders and horsepower.",
+      "data": {
+        "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+      },
+      "mark": "point",
+      "encoding": {
+        "x": {
+          "field": "Cylinders",
+          "type": "ordinal",
+          "title": "Number of Cylinders"
+        },
+        "y": {
+          "field": "Horsepower",
+          "type": "quantitative",
+          "title": "Horsepower"
+        },
+        "color": {
+          "field": "Origin",
+          "type": "nominal",
+          "legend": {
+            "title": "Origin of Car"
+          }
+        }
+      },
+      "title": "Does a higher number of Cylinders correlate with more Horsepower?"
+    },
+    "correct": "python code broken",
+    "incorrect1": "python code broken",
+    "incorrect2": "python code broken",
+    "incorrect3": "python code broken"
+  },
+  "8": {
+    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240325_150000_correlation_task2_vis2.png",
+    "Task Type": "Relationship and Correlation Tasks",
+    "Analysis Task": "Does a higher number of Cylinders correlate with more Horsepower?",
+    "Question type": "MC",
+    "Question sub-type": "SingleAnswer",
+    "Chart": "boxplot",
+    "Complexity": "ToDo",
+    "spec": {
+      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+      "description": "Box plot showing the distribution of horsepower across different numbers of cylinders.",
+      "data": {
+        "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+      },
+      "mark": "boxplot",
+      "encoding": {
+        "x": {
+          "field": "Cylinders",
+          "type": "ordinal",
+          "title": "Number of Cylinders"
+        },
+        "y": {
+          "field": "Horsepower",
+          "type": "quantitative",
+          "title": "Horsepower"
+        },
+        "color": {
+          "field": "Origin",
+          "type": "nominal",
+          "legend": {
+            "title": "Origin of Car",
+            "orient": "right"
+          }
+        }
+      },
+      "title": "Does a higher number of Cylinders correlate with more Horsepower?"
     },
     "correct": "python code broken",
     "incorrect1": "python code broken",
@@ -377,16 +451,16 @@
     "incorrect3": "python code broken"
   },
   "9": {
-    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_112244_exploration_task1_vis2.png",
+    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240325_150039_exploration_task1_vis1.png",
     "Task Type": "Data Exploration Tasks",
-    "Analysis Task": "Explore the distribution of Miles_per_Gallon across different Origins.",
+    "Analysis Task": "Explore the distribution of cars by Origin and compare their average Displacement.",
     "Question type": "TextEntry",
     "Question sub-type": "Essay",
     "Chart": "bar",
     "Complexity": "ToDo",
     "spec": {
       "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      "title": "Explore the distribution of Miles_per_Gallon across different Origins.",
+      "title": "Explore the distribution of cars by Origin and compare their average Displacement.",
       "data": {
         "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
       },
@@ -395,13 +469,17 @@
         "x": {
           "field": "Origin",
           "type": "nominal",
-          "title": "Origin"
+          "axis": {
+            "title": "Origin"
+          }
         },
         "y": {
-          "aggregate": "mean",
-          "field": "Miles_per_Gallon",
+          "aggregate": "average",
+          "field": "Displacement",
           "type": "quantitative",
-          "title": "Average Miles per Gallon"
+          "axis": {
+            "title": "Average Displacement"
+          }
         },
         "color": {
           "field": "Origin",
@@ -418,37 +496,40 @@
     "incorrect3": "python code broken"
   },
   "10": {
-    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_112335_exploration_task2_vis1.png",
+    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240325_150043_exploration_task1_vis2.png",
     "Task Type": "Data Exploration Tasks",
-    "Analysis Task": "Investigate the relationship between Displacement, Horsepower, and Miles_per_Gallon.",
+    "Analysis Task": "Explore the distribution of cars by Origin and compare their average Displacement.",
     "Question type": "TextEntry",
     "Question sub-type": "Essay",
-    "Chart": "point",
+    "Chart": "boxplot",
     "Complexity": "ToDo",
     "spec": {
       "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      "title": "Investigate the relationship between Displacement, Horsepower, and Miles_per_Gallon.",
+      "title": "Explore the distribution of cars by Origin and compare their average Displacement.",
       "data": {
         "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
       },
-      "mark": "point",
+      "mark": "boxplot",
       "encoding": {
         "x": {
-          "field": "Displacement",
-          "type": "quantitative",
-          "title": "Displacement (cubic inches)"
+          "field": "Origin",
+          "type": "nominal",
+          "axis": {
+            "title": "Origin"
+          }
         },
         "y": {
-          "field": "Horsepower",
+          "field": "Displacement",
           "type": "quantitative",
-          "title": "Horsepower"
+          "axis": {
+            "title": "Displacement"
+          }
         },
         "color": {
-          "field": "Miles_per_Gallon",
-          "type": "quantitative",
-          "title": "Miles per Gallon",
+          "field": "Origin",
+          "type": "nominal",
           "legend": {
-            "title": "MPG"
+            "title": "Car Origin"
           }
         }
       }
@@ -459,38 +540,82 @@
     "incorrect3": "python code broken"
   },
   "11": {
-    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240322_112340_exploration_task2_vis2.png",
+    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240325_150124_exploration_task2_vis1.png",
     "Task Type": "Data Exploration Tasks",
-    "Analysis Task": "Investigate the relationship between Displacement, Horsepower, and Miles_per_Gallon.",
+    "Analysis Task": "Investigate how Acceleration varies across different Years and identify any outliers.",
     "Question type": "TextEntry",
     "Question sub-type": "Essay",
     "Chart": "point",
     "Complexity": "ToDo",
     "spec": {
       "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
-      "title": "Investigate the relationship between Displacement, Horsepower, and Miles_per_Gallon.",
+      "title": "Investigate how Acceleration varies across different Years and identify any outliers.",
       "data": {
         "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
       },
       "mark": "point",
       "encoding": {
         "x": {
-          "field": "Displacement",
-          "type": "quantitative",
-          "title": "Displacement (cubic inches)"
+          "field": "Year",
+          "type": "temporal",
+          "axis": {
+            "title": "Year"
+          }
         },
         "y": {
-          "field": "Miles_per_Gallon",
+          "field": "Acceleration",
           "type": "quantitative",
-          "title": "Miles per Gallon"
-        },
-        "size": {
-          "field": "Horsepower",
-          "type": "quantitative",
-          "title": "Horsepower",
-          "legend": {
-            "title": "Horsepower"
+          "axis": {
+            "title": "Acceleration"
           }
+        },
+        "color": {
+          "field": "Origin",
+          "type": "nominal",
+          "legend": {
+            "title": "Origin"
+          }
+        }
+      }
+    },
+    "correct": "python code broken",
+    "incorrect1": "python code broken",
+    "incorrect2": "python code broken",
+    "incorrect3": "python code broken"
+  },
+  "12": {
+    "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240325_150128_exploration_task2_vis2.png",
+    "Task Type": "Data Exploration Tasks",
+    "Analysis Task": "Investigate how Acceleration varies across different Years and identify any outliers.",
+    "Question type": "TextEntry",
+    "Question sub-type": "Essay",
+    "Chart": "boxplot",
+    "Complexity": "ToDo",
+    "spec": {
+      "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+      "title": "Investigate how Acceleration varies across different Years and identify any outliers.",
+      "data": {
+        "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+      },
+      "mark": "boxplot",
+      "encoding": {
+        "x": {
+          "field": "Year",
+          "type": "ordinal",
+          "axis": {
+            "title": "Year",
+            "labelAngle": -45
+          }
+        },
+        "y": {
+          "field": "Acceleration",
+          "type": "quantitative",
+          "axis": {
+            "title": "Acceleration"
+          }
+        },
+        "color": {
+          "value": "steelblue"
         }
       }
     },

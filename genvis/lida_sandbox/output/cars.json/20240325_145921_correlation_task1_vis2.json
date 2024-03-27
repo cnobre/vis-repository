@@ -1,0 +1,47 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240325_145921_correlation_task1_vis2.png",
+  "Task Type": "Relationship and Correlation Tasks",
+  "Analysis Task": "Is there a correlation between Weight_in_lbs and Miles_per_Gallon?",
+  "Question type": "MC",
+  "Question sub-type": "SingleAnswer",
+  "Chart": "rect",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "description": "Hexbin plot showing the density of cars by Weight_in_lbs and Miles_per_Gallon.",
+    "data": {
+      "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+    },
+    "mark": "rect",
+    "encoding": {
+      "x": {
+        "bin": {
+          "maxbins": 60
+        },
+        "field": "Weight_in_lbs",
+        "type": "quantitative",
+        "title": "Weight in lbs"
+      },
+      "y": {
+        "bin": {
+          "maxbins": 60
+        },
+        "field": "Miles_per_Gallon",
+        "type": "quantitative",
+        "title": "Miles per Gallon"
+      },
+      "color": {
+        "aggregate": "count",
+        "type": "quantitative",
+        "legend": {
+          "title": "Number of Cars"
+        }
+      }
+    },
+    "title": "Is there a correlation between Weight_in_lbs and Miles_per_Gallon?"
+  },
+  "correct": "python code broken",
+  "incorrect1": "python code broken",
+  "incorrect2": "python code broken",
+  "incorrect3": "python code broken"
+}

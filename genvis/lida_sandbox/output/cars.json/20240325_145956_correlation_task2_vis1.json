@@ -1,0 +1,41 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240325_145956_correlation_task2_vis1.png",
+  "Task Type": "Relationship and Correlation Tasks",
+  "Analysis Task": "Does a higher number of Cylinders correlate with more Horsepower?",
+  "Question type": "MC",
+  "Question sub-type": "SingleAnswer",
+  "Chart": "point",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "description": "Scatter plot showing the relationship between the number of cylinders and horsepower.",
+    "data": {
+      "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+    },
+    "mark": "point",
+    "encoding": {
+      "x": {
+        "field": "Cylinders",
+        "type": "ordinal",
+        "title": "Number of Cylinders"
+      },
+      "y": {
+        "field": "Horsepower",
+        "type": "quantitative",
+        "title": "Horsepower"
+      },
+      "color": {
+        "field": "Origin",
+        "type": "nominal",
+        "legend": {
+          "title": "Origin of Car"
+        }
+      }
+    },
+    "title": "Does a higher number of Cylinders correlate with more Horsepower?"
+  },
+  "correct": "python code broken",
+  "incorrect1": "python code broken",
+  "incorrect2": "python code broken",
+  "incorrect3": "python code broken"
+}

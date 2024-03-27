@@ -1,0 +1,90 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240325_145831_trend_task2_vis2.png",
+  "Task Type": "Trend Analysis Tasks",
+  "Analysis Task": "How has the average Horsepower changed from 1970 to 1982?",
+  "Question type": "MC",
+  "Question sub-type": "SingleAnswer",
+  "Chart": "area",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "description": "Average Horsepower from 1970 to 1982",
+    "data": {
+      "values": [
+        {
+          "Year": 1970,
+          "Horsepower": 147.82758620689654
+        },
+        {
+          "Year": 1971,
+          "Horsepower": 107.03703703703704
+        },
+        {
+          "Year": 1972,
+          "Horsepower": 120.17857142857143
+        },
+        {
+          "Year": 1973,
+          "Horsepower": 130.475
+        },
+        {
+          "Year": 1974,
+          "Horsepower": 94.23076923076923
+        },
+        {
+          "Year": 1975,
+          "Horsepower": 101.06666666666666
+        },
+        {
+          "Year": 1976,
+          "Horsepower": 101.11764705882354
+        },
+        {
+          "Year": 1977,
+          "Horsepower": 105.07142857142857
+        },
+        {
+          "Year": 1978,
+          "Horsepower": 99.69444444444444
+        },
+        {
+          "Year": 1979,
+          "Horsepower": 101.20689655172414
+        },
+        {
+          "Year": 1980,
+          "Horsepower": 77.48148148148148
+        },
+        {
+          "Year": 1982,
+          "Horsepower": 81.25862068965517
+        }
+      ]
+    },
+    "mark": "area",
+    "encoding": {
+      "x": {
+        "field": "Year",
+        "type": "ordinal",
+        "axis": {
+          "title": "Year"
+        }
+      },
+      "y": {
+        "field": "Horsepower",
+        "type": "quantitative",
+        "axis": {
+          "title": "Average Horsepower"
+        }
+      },
+      "color": {
+        "value": "steelblue"
+      }
+    },
+    "title": "How has the average Horsepower changed from 1970 to 1982?"
+  },
+  "correct": "python code broken",
+  "incorrect1": "python code broken",
+  "incorrect2": "python code broken",
+  "incorrect3": "python code broken"
+}

@@ -1,0 +1,64 @@
+{
+  "url": "https://raw.githubusercontent.com/cnobre/vis-repository/vis_generation/genvis/lida_sandbox/output/cars.json/20240325_145747_trend_task1_vis2.png",
+  "Task Type": "Trend Analysis Tasks",
+  "Analysis Task": "Which year saw the highest average Miles_per_Gallon across all cars?",
+  "Question type": "MC",
+  "Question sub-type": "SingleAnswer",
+  "Chart": "line",
+  "Complexity": "ToDo",
+  "spec": {
+    "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+    "title": "Which year saw the highest average Miles_per_Gallon across all cars?",
+    "data": {
+      "url": "https://raw.githubusercontent.com/vega/vega-datasets/main/data/cars.json"
+    },
+    "mark": "line",
+    "encoding": {
+      "x": {
+        "field": "Year",
+        "type": "temporal",
+        "axis": {
+          "title": "Year",
+          "format": "%Y",
+          "labelAngle": -45
+        }
+      },
+      "y": {
+        "aggregate": "average",
+        "field": "Miles_per_Gallon",
+        "type": "quantitative",
+        "axis": {
+          "title": "Average Miles per Gallon"
+        }
+      },
+      "color": {
+        "field": "Cylinders",
+        "type": "nominal",
+        "legend": {
+          "title": "Number of Cylinders"
+        }
+      },
+      "tooltip": [
+        {
+          "field": "Year",
+          "type": "temporal",
+          "title": "Year"
+        },
+        {
+          "field": "Miles_per_Gallon",
+          "type": "quantitative",
+          "title": "Average MPG"
+        },
+        {
+          "field": "Cylinders",
+          "type": "nominal",
+          "title": "Cylinders"
+        }
+      ]
+    }
+  },
+  "correct": "python code broken",
+  "incorrect1": "python code broken",
+  "incorrect2": "python code broken",
+  "incorrect3": "python code broken"
+}
